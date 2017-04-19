@@ -24,18 +24,19 @@ class CreateProductsTable extends Migration
             $table->string('price_per', 5);
             $table->string('refactor', 6);
             $table->string('ean', 16);
-            $table->string('image', 34);
+            $table->string('image', 100);
             $table->string('length', 9)->nullable();
             $table->string('brand', 50);
             $table->string('series', 50);
             $table->string('type', 50);
             $table->decimal('price', 10, 2);
-            $table->decimal('special_price', 10, 2);
-            $table->string('action_type', 10);
+            $table->decimal('special_price', 10, 2)->nullable();
+            $table->string('action_type', 10)->nullable();
             $table->string('keywords');
             $table->string('related_products');
             $table->string('catalog_group');
             $table->string('catalog_index');
+            $table->string('hash')->unique()->nullable();
             $table->timestamps();
         });
     }

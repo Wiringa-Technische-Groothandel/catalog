@@ -2,8 +2,17 @@
 
 namespace WTG\Catalog\Providers;
 
+use WTG\Catalog\Models\Product;
 use Illuminate\Support\ServiceProvider;
+use WTG\Catalog\Interfaces\ProductInterface;
 
+/**
+ * Class CatalogServiceProvider
+ *
+ * @package     WTG\Catalog
+ * @subpackage  Providers
+ * @author      Thomas Wiringa <thomas.wiringa@gmail.com>
+ */
 class CatalogServiceProvider extends ServiceProvider
 {
     /**
@@ -17,7 +26,7 @@ class CatalogServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(__DIR__.'/../Migrations');
 
-//        $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'customer');
+        $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'catalog');
     }
 
     /**
@@ -27,6 +36,6 @@ class CatalogServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(ProductInterface::class, Product::class);
     }
 }
