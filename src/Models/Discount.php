@@ -2,9 +2,10 @@
 
 namespace WTG\Catalog\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use WTG\Catalog\Interfaces\ProductInterface;
-use Illuminate\Database\Eloquent\Model;
+use WTG\Catalog\Interfaces\DiscountInterface;
 
 /**
  * Discount model
@@ -13,20 +14,27 @@ use Illuminate\Database\Eloquent\Model;
  * @subpackage  Models
  * @author      Thomas Wiringa <thomas.wiringa@gmail.com>
  */
-class Discount extends Model
+class Discount extends Model implements DiscountInterface
 {
     /**
      * @var bool
      */
     public $incrementing = false;
 
-    public static function findDiscountByProduct(ProductInterface $product)
+    /**
+     * Get a discount by the product model.
+     *
+     * @param  ProductInterface  $product
+     * @return mixed
+     */
+    public static function findDiscountByProduct(ProductInterface $product): DiscountInterface
     {
         $productSku = $product->getSku();
         $productGroup = $product->getGroup();
 
         /** @var Collection $discounts */
-        $discounts = static::where('product', $productSku)
+        $discounts = app()->make(DiscountInterface::class)
+            ->where('product', $productSku)
             ->orWhere('product', $productGroup)
             ->orderBy('level', 'desc')
             ->get();
@@ -36,5 +44,28 @@ class Discount extends Model
         }
 
         \Log::warning("[Discount] Product '".$product->getId()."' does not have a discount for customer '".\Auth::user()->getCompany()->getCustomerNumber()."'");
+    }
+
+    /**
+     * Get the discount id.
+     *
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->attributes['id'];
+    }
+
+    /**
+     * Set the discount id
+     *
+     * @param  string  $id
+     * @return $this
+     */
+    public function setId(string $id)
+    {
+        $this->attributes['id'] = $id;
+
+        return $this;
     }
 }
