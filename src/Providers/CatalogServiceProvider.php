@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use WTG\Catalog\Interfaces\ProductInterface;
 
 /**
- * Class CatalogServiceProvider
+ * Catalog service provider
  *
  * @package     WTG\Catalog
  * @subpackage  Providers
@@ -22,7 +22,9 @@ class CatalogServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        $this->loadRoutesFrom(__DIR__.'/../routes.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes.php');
+
+        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'catalog');
 
         $this->loadMigrationsFrom(__DIR__.'/../Migrations');
 
