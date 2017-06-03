@@ -37,6 +37,7 @@ class CreateProductsTable extends Migration
             $table->string('catalog_group');
             $table->string('catalog_index');
             $table->string('hash')->unique()->nullable();
+            $table->string('imported_at')->nullable();
             $table->timestamps();
         });
     }

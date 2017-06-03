@@ -19,6 +19,7 @@ class CreateDiscountsTable extends Migration
             $table->integer('level');
             $table->double('value', 7, 5);
             $table->string('hash')->unique()->nullable();
+            $table->string('imported_at')->nullable();
             $table->timestamps();
         });
     }
