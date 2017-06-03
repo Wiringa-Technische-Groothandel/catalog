@@ -313,9 +313,10 @@ class Product extends Model implements ProductInterface
     /**
      * Get the image name
      *
+     * @param  bool  $assetPath
      * @return string
      */
-    public function getImage(): string
+    public function getImage(bool $assetPath = true): string
     {
         $image = $this->attributes['image'];
 
@@ -323,7 +324,11 @@ class Product extends Model implements ProductInterface
             return $image;
         }
 
-        return asset($this->image_path.$image);
+        if ($assetPath) {
+            return asset($this->image_path.$image);
+        } else {
+            return $image;
+        }
     }
 
     /**
@@ -462,5 +467,51 @@ class Product extends Model implements ProductInterface
     public function getStockCode(): string
     {
         return $this->attributes['stock_code'];
+    }
+
+    /**
+     * Set the catalog group.
+     *
+     * @param  string  $group
+     * @return string
+     */
+    public function setCatalogGroup(string $group)
+    {
+        $this->attributes['catalog_group'] = $group;
+
+        return $this;
+    }
+
+    /**
+     * Get the catalog group.
+     *
+     * @return string
+     */
+    public function getCatalogGroup(): string
+    {
+        return $this->attributes['catalog_group'];
+    }
+
+    /**
+     * Set the catalog index.
+     *
+     * @param  string  $index
+     * @return string
+     */
+    public function setCatalogIndex(string $index)
+    {
+        $this->attributes['catalog_index'] = $index;
+
+        return $this;
+    }
+
+    /**
+     * Get the catalog index.
+     *
+     * @return string
+     */
+    public function getCatalogIndex(): string
+    {
+        return $this->attributes['catalog_index'];
     }
 }

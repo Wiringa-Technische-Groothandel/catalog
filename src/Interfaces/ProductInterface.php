@@ -143,9 +143,10 @@ interface ProductInterface
     /**
      * Get the image name
      *
+     * @param  bool  $assetPath
      * @return string
      */
-    public function getImage(): string;
+    public function getImage(bool $assetPath = true): string;
 
     /**
      * Set the brand
@@ -235,4 +236,34 @@ interface ProductInterface
      * @return string
      */
     public function getStockCode(): string;
+
+    /**
+     * Set the catalog group.
+     *
+     * @param  string  $group
+     * @return string
+     */
+    public function setCatalogGroup(string $group);
+
+    /**
+     * Get the catalog group.
+     *
+     * @return string
+     */
+    public function getCatalogGroup(): string;
+
+    /**
+     * Set the catalog index.
+     *
+     * @param  string  $index
+     * @return string
+     */
+    public function setCatalogIndex(string $index);
+
+    /**
+     * Get the catalog index.
+     *
+     * @return string
+     */
+    public function getCatalogIndex(): string;
 }
